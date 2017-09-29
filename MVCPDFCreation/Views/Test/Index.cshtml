@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MVCPDFCreation.Models.Employee>
+@{
+    ViewBag.Title = "Index";
+}
+<script src="~/Scripts/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // sending HTML content to the controller
+        $("#btnsubmit").click(function () {
+            $("input[name='GridHtml']").val($("#Grid").html());
+        });
+        // sending HTML content to the controller
+        $("#submitbtn").click(function () {
+            $("input[name='HtmlGrid']").val($("#Grid").html());
+        });
+    });
+</script>
+<html>
+<body>
+    <div id="Grid">
+        <table class="table table-responsive">
+            <tr>
+                <th style="background-color:#B8DBFD;border:1px solid #ccc">Employee ID</th>
+                <th style="background-color:#B8DBFD;border:1px solid #ccc">Employee Name</th>
+                <th style="background-color:#B8DBFD;border:1px solid #ccc">Gender</th>
+                <th style="background-color:#B8DBFD;border:1px solid #ccc">Salary</th>
+                <th style="background-color:#B8DBFD;border:1px solid #ccc">DepartmentID</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="width:120px;border:1px solid #ccc">@item.EmpID</td>
+                    <td style="width:120px;border:1px solid #ccc">@item.EmpName</td>
+                    <td style="width:120px;border:1px solid #ccc">@item.Gender</td>
+                    <td style="width:120px;border:1px solid #ccc">@item.Salary</td>
+                    <td style="width:120px;border:1px solid #ccc">@item.DeptID</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <br />
+    <br />
+    @using (Html.BeginForm("ExportPDF", "Test", FormMethod.Post))
+    {
+        <input type="hidden" name="GridHtml" />
+        <input type="submit" id="btnsubmit" value="ExportToPDF" />
+    }
+    @using (Html.BeginForm("ExportExcel", "Test", FormMethod.Post))
+    {
+        <input type="hidden" name="HtmlGrid" />
+        <input type="submit" id="submitbtn" value="ExportToExcel" />
+    }
+</body>
+</html>
+
+<br />
+<br />
